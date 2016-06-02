@@ -35,8 +35,8 @@ public abstract class BOPBlockWorldDecor extends BlockBush
     public boolean canReplace(World world, int x, int y, int z, int side, ItemStack itemStack)
     {
     	if (world.getBlock(x, y - 1, z) == Blocks.air) return false;
-
-    	return isValidPosition(world, x, y, z, itemStack.getItemDamage());
+    	
+    	return isValidPosition(world, x, y, z, itemStack != null ? itemStack.getItemDamage() : 0);
     } 
 	
     public void dropIfCantStay(World world, int x, int y, int z, ItemStack stack)
@@ -51,6 +51,9 @@ public abstract class BOPBlockWorldDecor extends BlockBush
 	@Override
 	public void onNeighborBlockChange(World world, int x, int y, int z, Block neighborBlock)
 	{
+		if (world.getBlock(x, y, z) != null)
+		{
 		dropIfCantStay(world, x, y, z, new ItemStack(world.getBlock(x, y, z), 1, world.getBlockMetadata(x, y, z)));
+		}
 	}
 }

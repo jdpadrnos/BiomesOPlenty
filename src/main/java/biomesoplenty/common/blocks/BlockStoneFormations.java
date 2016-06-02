@@ -89,9 +89,7 @@ public class BlockStoneFormations extends BOPBlockWorldDecor implements ISubLoca
 	
 	public boolean isValidPosition(World world, int x, int y, int z, int metadata)
 	{
-		//TODO:					  getBlock()
 		Block blockBottom = world.getBlock(x, y - 1, z);
-		//TODO:				   getBlock()
 		Block blockTop = world.getBlock(x, y + 1, z);
 		
 		switch (metadata)
@@ -110,7 +108,8 @@ public class BlockStoneFormations extends BOPBlockWorldDecor implements ISubLoca
 	@Override
     public boolean canReplace(World world, int x, int y, int z, int side, ItemStack itemStack)
 	{
-		return isValidPosition(world, x, y, z, itemStack.getItemDamage());
+		int metadata = itemStack != null ? itemStack.getItemDamage() : 0;
+		return isValidPosition(world, x, y, z, metadata);
 	}
 	
 	@Override
@@ -136,6 +135,9 @@ public class BlockStoneFormations extends BOPBlockWorldDecor implements ISubLoca
 	@Override
 	public String getUnlocalizedName(String baseName, ItemStack itemStack) 
 	{
+		if(itemStack.getItemDamage() > 1) {
+			return null;
+		}
 		return baseName + "." + forms[itemStack.getItemDamage()];
 	}
 }

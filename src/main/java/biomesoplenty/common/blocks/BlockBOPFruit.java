@@ -80,7 +80,6 @@ public class BlockBOPFruit extends BOPBlockWorldDecor
 	
 	@Override
 	@SideOnly(Side.CLIENT)
-	//TODO:		getSubBlocks()
 	public void getSubBlocks(Item block, CreativeTabs creativeTabs, List list) 
 	{
 		//for (int i = 0; i < fruit.length; ++i)
@@ -104,7 +103,7 @@ public class BlockBOPFruit extends BOPBlockWorldDecor
 	@Override
     public boolean canReplace(World world, int x, int y, int z, int side, ItemStack itemStack)
 	{
-		int metadata = itemStack.getItemDamage();
+		int metadata = itemStack != null ? itemStack.getItemDamage() : 0;
 		
         return this.isValidPosition(world, x, y, z, metadata);
 	}

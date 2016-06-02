@@ -19,6 +19,7 @@ import biomesoplenty.BiomesOPlenty;
 import biomesoplenty.api.content.BOPCBlocks;
 import biomesoplenty.common.world.features.trees.WorldGenBOPSwampTree;
 import biomesoplenty.common.world.features.trees.WorldGenMangrove;
+import biomesoplenty.common.world.features.trees.WorldGenMixedTree;
 import biomesoplenty.common.world.features.trees.WorldGenPalmTree1;
 import biomesoplenty.common.world.features.trees.WorldGenPineTree;
 import biomesoplenty.common.world.features.trees.WorldGenRainforestTree1;
@@ -42,7 +43,8 @@ public class BlockBOPColorizedSapling extends BlockSapling
     @Override
     public boolean canReplace(World world, int x, int y, int z, int side, ItemStack itemStack)
     {
-    	return this.canPlaceBlockAt(world, x, y, z) && this.isValidPosition(world, x, y, z, itemStack.getItemDamage());
+    	int metadata = itemStack != null ? itemStack.getItemDamage() : 0;
+    	return this.canPlaceBlockAt(world, x, y, z) && this.isValidPosition(world, x, y, z, metadata);
     } 
     
     /**
@@ -110,7 +112,6 @@ public class BlockBOPColorizedSapling extends BlockSapling
 	}
 
 	@Override
-	//TODO:		growTree()
 	public void func_149878_d(World world, int x, int y, int z, Random random)
 	{
 		int meta = world.getBlockMetadata(x, y, z) & 7;
@@ -151,6 +152,10 @@ public class BlockBOPColorizedSapling extends BlockSapling
 			        
 			    case 6: //Mahogany Tree
 			    	obj = new WorldGenRainforestTree1(BOPCBlocks.logs4, BOPCBlocks.colorizedLeaves2, 3, 2, false, 8, 8);
+			    	break;
+			    	
+			    case 7: //Flowering Oak Tree
+			    	obj = new WorldGenMixedTree(Blocks.log, Blocks.leaves, 0, 0, BOPCBlocks.colorizedLeaves2, 3);
 			    	break;
 			}
 		}

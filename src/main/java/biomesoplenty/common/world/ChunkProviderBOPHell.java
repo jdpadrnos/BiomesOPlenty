@@ -7,6 +7,7 @@ import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.NETH
 import static net.minecraftforge.event.terraingen.PopulateChunkEvent.Populate.EventType.FIRE;
 import static net.minecraftforge.event.terraingen.PopulateChunkEvent.Populate.EventType.GLOWSTONE;
 import static net.minecraftforge.event.terraingen.PopulateChunkEvent.Populate.EventType.NETHER_LAVA;
+import static net.minecraftforge.event.terraingen.OreGenEvent.GenerateMinable.EventType.QUARTZ;
 
 import java.util.List;
 import java.util.Random;
@@ -498,7 +499,7 @@ public class ChunkProviderBOPHell implements IChunkProvider
 			 j1 = k + hellRNG.nextInt(16) + 8;
 			 k1 = hellRNG.nextInt(120) + 4;
 			 l1 = l + hellRNG.nextInt(16) + 8;
-			 (new WorldGenHellLava(Blocks.lava, false)).generate(worldObj, hellRNG, j1, k1, l1);
+			 (new WorldGenHellLava(Blocks.flowing_lava, false)).generate(worldObj, hellRNG, j1, k1, l1);
 		 }
 
 		 i1 = hellRNG.nextInt(hellRNG.nextInt(10) + 1) + 1;
@@ -554,7 +555,8 @@ public class ChunkProviderBOPHell implements IChunkProvider
 		 WorldGenMinable worldgenminable = new WorldGenMinable(Blocks.quartz_ore, 13, Blocks.netherrack);
 		 int j2;
 
-		 for (k1 = 0; k1 < 16; ++k1)
+		 doGen = TerrainGen.generateOre(worldObj, hellRNG, worldgenminable, k, l, QUARTZ);
+		 for (k1 = 0; k1 < 16 && doGen; ++k1)
 		 {
 			 l1 = k + hellRNG.nextInt(16);
 			 i2 = hellRNG.nextInt(108) + 10;

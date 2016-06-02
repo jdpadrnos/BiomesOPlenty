@@ -6,10 +6,14 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
+import net.minecraft.world.IBlockAccess;
+import net.minecraftforge.common.util.ForgeDirection;
 import biomesoplenty.BiomesOPlenty;
+import biomesoplenty.api.content.BOPCBlocks;
 
 public class BlockBOPPlank extends Block
 {
@@ -18,22 +22,17 @@ public class BlockBOPPlank extends Block
 
 	public BlockBOPPlank()
 	{
-		//TODO: Material.wood
 		super(Material.wood);
 		
-		//TODO: this.setHardness
 		this.setHardness(2.0F);
 		this.setHarvestLevel("axe", 0);
 		
-		//TODO setStepSound(Block.soundWoodFootstep)
 		this.setStepSound(Block.soundTypeWood);
 		
-		//TODO: this.setCreativeTab()
 		this.setCreativeTab(BiomesOPlenty.tabBiomesOPlenty);
 	}
 
 	@Override
-	//TODO:		registerIcons()
 	public void registerBlockIcons(IIconRegister iconRegister)
 	{
 		textures = new IIcon[woodTypes.length];
@@ -44,7 +43,6 @@ public class BlockBOPPlank extends Block
 	}
 
 	@Override
-	//TODO:		 getIcon()
 	public IIcon getIcon(int side, int meta)
 	{
 		if (meta < 0 || meta >= textures.length) {
@@ -56,7 +54,6 @@ public class BlockBOPPlank extends Block
 
 	@Override
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	//TODO:		getSubBlocks()
 	public void getSubBlocks(Item block, CreativeTabs creativeTabs, List list) 
 	{
 		for (int i = 0; i < woodTypes.length; ++i) 
@@ -66,7 +63,51 @@ public class BlockBOPPlank extends Block
 	}
 
 	@Override
-	//TODO     damageDropped()
+	public int getFlammability(IBlockAccess world, int x, int y, int z, ForgeDirection face)
+	{
+		Block block = BOPCBlocks.planks;
+
+		if (block == BOPCBlocks.planks && world.getBlockMetadata(x, y, z) == 12)
+		{
+			return 0;
+		}
+		else
+		{
+			return Blocks.fire.getFlammability(this);
+		}
+	}
+
+	@Override
+	public int getFireSpreadSpeed(IBlockAccess world, int x, int y, int z, ForgeDirection face)
+	{
+		Block block = BOPCBlocks.planks;
+
+		if (block == BOPCBlocks.planks && world.getBlockMetadata(x, y, z) == 12)
+		{
+			return 0;
+		}
+		else
+		{
+			return Blocks.fire.getEncouragement(this);
+		}
+	}
+
+	@Override
+	public boolean isFlammable(IBlockAccess world, int x, int y, int z, ForgeDirection face)
+	{
+		Block block = BOPCBlocks.planks;
+
+		if (block == BOPCBlocks.planks && world.getBlockMetadata(x, y, z) == 12)
+		{
+			return false;
+		}
+		else
+		{
+			return getFlammability(world, x, y, z, face) > 0;
+		}
+	}
+
+	@Override
 	public int damageDropped(int meta)
 	{
 		return meta;

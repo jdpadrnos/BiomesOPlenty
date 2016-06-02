@@ -12,7 +12,7 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import biomesoplenty.api.content.BOPCItems;
 import biomesoplenty.client.particles.EntityDandelionFX;
-import biomesoplenty.client.particles.EntityFlowerScatterFX;
+import biomesoplenty.client.particles.EntityTrailFX;
 import biomesoplenty.client.particles.EntityMagicTreeFX;
 import biomesoplenty.client.particles.EntityPixieTrailFX;
 import biomesoplenty.client.particles.EntitySteamFX;
@@ -63,40 +63,13 @@ public class ClientProxy extends CommonProxy
 		RenderingRegistry.registerEntityRenderingHandler(EntityDart.class, new RenderDart());
 		RenderingRegistry.registerEntityRenderingHandler(EntityMudball.class, new RenderSnowball(BOPCItems.mudball, 0));
 		
-        if (BOPConfigurationIDs.globID > 0)
-        {
-                RenderingRegistry.registerEntityRenderingHandler(EntityGlob.class, new RenderGlob(new ModelSlime(16), new ModelSlime(0), 0.25F));
-        }
-        
-        if (BOPConfigurationIDs.jungleSpiderID > 0)
-        {
-                RenderingRegistry.registerEntityRenderingHandler(EntityJungleSpider.class, new RenderJungleSpider());
-        }
-        
-        if (BOPConfigurationIDs.rosesterID > 0)
-        {
-                RenderingRegistry.registerEntityRenderingHandler(EntityRosester.class, new RenderRosester(new ModelChicken(), 0.3F));
-        }
-        
-        if (BOPConfigurationIDs.phantomID > 0)
-        {
-                RenderingRegistry.registerEntityRenderingHandler(EntityPhantom.class, new RenderPhantom());
-        }
-
-        if (BOPConfigurationIDs.waspID > 0)
-        {
-            RenderingRegistry.registerEntityRenderingHandler(EntityWasp.class, new RenderWasp());
-        }
-        
-        if (BOPConfigurationIDs.birdID > 0)
-        {
-            RenderingRegistry.registerEntityRenderingHandler(EntityBird.class, new RenderBird());
-        }
-        
-        if (BOPConfigurationIDs.pixieID > 0)
-        {
-            RenderingRegistry.registerEntityRenderingHandler(EntityPixie.class, new RenderPixie());
-        }
+        RenderingRegistry.registerEntityRenderingHandler(EntityGlob.class, new RenderGlob(new ModelSlime(16), new ModelSlime(0), 0.25F));
+        RenderingRegistry.registerEntityRenderingHandler(EntityJungleSpider.class, new RenderJungleSpider());
+        RenderingRegistry.registerEntityRenderingHandler(EntityRosester.class, new RenderRosester(new ModelChicken(), 0.3F));
+        RenderingRegistry.registerEntityRenderingHandler(EntityPhantom.class, new RenderPhantom());
+        RenderingRegistry.registerEntityRenderingHandler(EntityWasp.class, new RenderWasp());
+        RenderingRegistry.registerEntityRenderingHandler(EntityBird.class, new RenderBird());
+        RenderingRegistry.registerEntityRenderingHandler(EntityPixie.class, new RenderPixie());
 		
         RenderingRegistry.registerBlockHandler(new FoliageRenderer());
 		RenderingRegistry.registerBlockHandler(new PlantsRenderer());
@@ -144,7 +117,7 @@ public class ClientProxy extends CommonProxy
 		}
 		else if (string == "flowerscatter")
 		{
-			entityfx = new EntityFlowerScatterFX(minecraft.theWorld, x, y, z, (IIcon)args[0]);
+			entityfx = new EntityTrailFX(minecraft.theWorld, x, y, z, (String)args[0]);
 		}
 
 		minecraft.effectRenderer.addEffect(entityfx);

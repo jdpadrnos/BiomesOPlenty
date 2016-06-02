@@ -72,7 +72,8 @@ public class BlockBOPSapling extends BlockSapling
 	@Override
 	public boolean canReplace(World world, int x, int y, int z, int side, ItemStack itemStack)
 	{
-		return this.canPlaceBlockAt(world, x, y, z) && this.isValidPosition(world, x, y, z, itemStack.getItemDamage());
+		int metadata = itemStack != null ? itemStack.getItemDamage() : 0;
+		return this.canPlaceBlockAt(world, x, y, z) && this.isValidPosition(world, x, y, z, metadata);
 	} 
 	
 	/**
@@ -117,14 +118,12 @@ public class BlockBOPSapling extends BlockSapling
 			this.checkAndDropBlock(world, x, y, z);
 			if (world.getBlockLightValue(x, y + 1, z) >= 9 && random.nextInt(7) == 0) 
 			{
-				//TODO: growTree()
 				this.func_149878_d(world, x, y, z, random);
 			}
 		}
 	}
 
 	@Override
-	//TODO:		growTree()
 	public void func_149878_d(World world, int x, int y, int z, Random random)
 	{
 		int meta = world.getBlockMetadata(x, y, z) & TYPES;
@@ -136,7 +135,7 @@ public class BlockBOPSapling extends BlockSapling
 			switch (meta)
 			{
 			case 0: // Apple Tree
-				obj = new WorldGenOriginalTree(Blocks.log, BOPCBlocks.appleLeaves, 0, 0, 1);
+				obj = new WorldGenOriginalTree(Blocks.log, BOPCBlocks.appleLeaves, 0, 0, 0);
 				break;
 
 			case 1: // Autumn Tree
